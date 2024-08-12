@@ -24,5 +24,23 @@ jobs:
       if: always()
       with:
         name: cucumber-report
-        path: cucumber-report/
+        path: ./cucumber-report/
         retention-days: 30
+    - name: Setup Pages
+      id: pages
+      uses: actions/configure-pages@v3
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v2
+      with:
+        path: ./cucumber-report/reports
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{steps.deployment.outputs.page_url}}
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
