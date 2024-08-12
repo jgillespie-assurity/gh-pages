@@ -4,7 +4,9 @@ on:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
-  workflow_dispatch:  
+  workflow_dispatch: 
+permissions:
+  id-token: write 
 jobs:
   test:
     timeout-minutes: 60
